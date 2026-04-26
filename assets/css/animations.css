@@ -1,0 +1,72 @@
+/* ==========================================================================
+   Animations & motion primitives
+   ========================================================================== */
+
+/* Split-text character prep */
+[data-split-chars] .ch,
+[data-split-words] .wd {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+[data-split-chars] .ch {
+  transform: translate3d(0, 110%, 0);
+  opacity: 0;
+}
+
+[data-split-words] .wd {
+  transform: translate3d(0, 100%, 0) rotate(4deg);
+  opacity: 0;
+}
+
+[data-split-chars].is-split-ready .ch,
+[data-split-words].is-split-ready .wd { /* GSAP will animate; reset baseline */ }
+
+/* Subtle pop-in */
+@keyframes popIn {
+  0% { transform: scale(0.82); opacity: 0; }
+  70% { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.pop-in { animation: popIn 0.7s var(--ease-out, cubic-bezier(.22,1,.36,1)) both; }
+
+/* Floating stamp hover */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.float { animation: floaty 5s ease-in-out infinite; }
+
+/* Shimmer line (for hero eyebrow, etc.) */
+@keyframes shimmerSweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 20%, rgba(247,236,225,0.6) 50%, transparent 80%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmerSweep 3.2s linear infinite;
+}
+
+/* Magnetic hover helper (scale accent on buttons) */
+.magnetic { will-change: transform; }
+
+/* Image reveal mask */
+.reveal-mask { clip-path: inset(100% 0 0 0); }
+.reveal-mask.is-in { clip-path: inset(0% 0 0 0); transition: clip-path 1.2s cubic-bezier(.22,1,.36,1); }
+
+/* FAQ details animation */
+details[open] p { animation: faqSlide 0.45s cubic-bezier(.22,1,.36,1); }
+@keyframes faqSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Gallery hover label rise */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
